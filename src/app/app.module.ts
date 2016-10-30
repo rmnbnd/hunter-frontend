@@ -7,6 +7,8 @@ import { routes }   from './app.routes';
 import { HomeComponent } from "./components/home/home.component";
 import { LoginComponent } from "./components/login/login.component";
 import { ProfileComponent } from "./components/profile/profile.component";
+import { HeaderComponent } from "./components/header/header.component";
+import { FooterComponent } from "./components/footer/footer.component";
 
 @NgModule({
     imports: [
@@ -15,6 +17,8 @@ import { ProfileComponent } from "./components/profile/profile.component";
     ],
     declarations: [
         AppComponent,
+        HeaderComponent,
+        FooterComponent,
         HomeComponent,
         LoginComponent,
         ProfileComponent
