@@ -20,29 +20,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.userAuthenticatedSubscription = this.accountService.userAuthenticated.subscribe(
-            (authenticated) => {
-                if (authenticated) {
-                    this.loadAuthenticatedUser();
-                }
-            }
-        );
+            (authenticated) => this.loadAuthenticatedUser());
     }
 
     private loadAuthenticatedUser(): void {
-        this.accountService.getAuthenticatedCustomer()
+        this.accountService.getAuthenticatedUser()
             .subscribe(user => {
                 if(user) {
                     this.authenticatedUser = user;
                 }
             });
-
-        this.accountService.getAuthenticatedPerformer()
-            .subscribe(user => {
-                if (user) {
-                    this.authenticatedUser = user;
-                }
-            });
-
     }
 
     ngOnDestroy(): void {

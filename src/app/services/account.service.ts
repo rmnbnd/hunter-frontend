@@ -12,13 +12,8 @@ export class AccountService {
     constructor(private http: Http) {
     }
 
-    getAuthenticatedCustomer(): Observable<User> {
-        return this.http.get(`/api/customers/search/findCurrentCustomer`)
-            .map(res =>  res.json() as User);
-    }
-
-    getAuthenticatedPerformer(): Observable<User> {
-        return this.http.get(`/api/performers/search/findCurrentPerformer`)
+    getAuthenticatedUser(): Observable<User> {
+        return this.http.get(`/api/findCurrentUser`)
             .map(res =>  res.json() as User);
     }
 
