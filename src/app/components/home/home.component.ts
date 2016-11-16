@@ -1,19 +1,61 @@
-import { Component } from "@angular/core";
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Subscription} from "rxjs";
+import {User} from "../../models/user";
+import {AccountService} from "../../services/account.service";
+import {Router} from "@angular/router"
 
 @Component({
     selector: 'home',
     templateUrl: 'home.component.html'
 })
-export class HomeComponent {
-    jwt: string;
+export class HomeComponent implements OnInit, OnDestroy {
+    private userAuthenticatedSubscription: Subscription;
 
-    constructor() {
-        this.jwt = localStorage.getItem('id_token');
+    authenticatedUser: User;
+
+    constructor(
+        private accountService: AccountService,
+        private router: Router
+    ) { }
+
+    ngOnInit(): void {
+        this.userAuthenticatedSubscription = this.accountService.userAuthenticated.subscribe(
+            (authenticated) => {
+                if (authenticated) {
+                    this.loadAuthenticatedUser();
+                }
+            }
+        );
+    }
+
+    private loadAuthenticatedUser(): void {
+        this.accountService.getAuthenticatedCustomer()
+            .subscribe(user => {
+                if(user) {
+                    this.authenticatedUser = user;
+                }
+            });
+
+        this.accountService.getAuthenticatedPerformer()
+            .subscribe(user => {
+                if (user) {
+                    this.authenticatedUser = user;
+                }
+            });
+
+    }
+
+    ngOnDestroy(): void {
+        this.userAuthenticatedSubscription.unsubscribe();
     }
 
     logout() {
-        localStorage.removeItem('id_token');
-        delete this.jwt;
+        this.accountService.logout(
+            () => {
+                this.authenticatedUser = null;
+                this.router.navigate(['/'])
+            }
+        );
     }
 
 }
