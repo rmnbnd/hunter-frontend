@@ -1,6 +1,6 @@
 // app.routes.ts
 import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './components/authentication/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes = [{

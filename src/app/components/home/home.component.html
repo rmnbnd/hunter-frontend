@@ -1,7 +1,7 @@
 <div>
     <h1>Welcome to the application</h1>
     <p>
-        <button *ngIf="!jwt" [routerLink]="['/login']">Login</button>
-        <button *ngIf="jwt" (click)="logout()">Logout</button>
+        <button *ngIf="!authenticatedUser" [routerLink]="['/login']">Login</button>
+        <button *ngIf="authenticatedUser" (click)="logout()">Logout</button>
     </p>
 </div>
